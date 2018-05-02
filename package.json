@@ -1,0 +1,11 @@
+{
+    "name": "Threejs-vr-keyboard",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "three": "^0.92.0"
+    }
+}
