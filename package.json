@@ -7,5 +7,6 @@
     "license": "ISC",
     "dependencies": {
         "three": "^0.92.0"
-    }
+    },
+    "repository": "https://github.com/byondrnd/vr-keyboard.git"
 }
