@@ -1,3 +1,4 @@
+VRMode = false;
 VRKey=function(data, xPos, yPos)
 {
     this.code=data.c;
@@ -583,9 +584,13 @@ VRKeyboard = function (scene, camera, renderer) {
 
     this.getInput=function(pointerX, pointerY)
     {
-        var mouse3D = new THREE.Vector3( ( pointerX / this.renderer.domElement.width ) * 2 - 1, - ( pointerY / this.renderer.domElement.height ) * 2 + 1, 0.5 );
-        mouse3D.unproject(this.camera );
-        this.raycaster = new THREE.Raycaster( this.camera.position, mouse3D.sub( this.camera.position ).normalize() );
+        if (VRMode) {
+            pointerX = 0;
+            pointerY = 0;
+        }
+
+        this.raycaster = new THREE.Raycaster();
+        this.raycaster.setFromCamera({x: pointerX, y: pointerY}, this.camera);
         var intersects = this.raycaster.intersectObject(this, true);
 
         if (intersects.length > 0) {
@@ -1002,10 +1007,12 @@ VRTextInput = function () {
     {
         if(!this.scene)
             return;
-
-        var mouse3D = new THREE.Vector3( ( pointerX / this.renderer.domElement.width ) * 2 - 1, - ( pointerY / this.renderer.domElement.height ) * 2 + 1, 0.5 );
-        mouse3D.unproject(this.camera );
-        this.raycaster = new THREE.Raycaster( this.camera.position, mouse3D.sub( this.camera.position ).normalize() );
+        if (VRMode) {
+            pointerX = 0;
+            pointerY = 0;
+        }
+        this.raycaster = new THREE.Raycaster();
+        this.raycaster.setFromCamera({x: pointerX, y: pointerY}, this.camera);
         var intersects = this.raycaster.intersectObject(this, true);
 
         if (intersects.length > 0) {
