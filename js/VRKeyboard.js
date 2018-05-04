@@ -1,4 +1,3 @@
-VRMode = false;
 VRKey=function(data, xPos, yPos)
 {
     this.code=data.c;
@@ -584,14 +583,9 @@ VRKeyboard = function (scene, camera, renderer) {
 
     this.getInput=function(pointerX, pointerY)
     {
-        if (VRMode) {
-            pointerX = 0;
-            pointerY = 0;
-        }
-        var mouse3D = new THREE.Vector3( ( pointerX / this.renderer.domElement.width ) * 2 - 1, - ( pointerY / this.renderer.domElement.height ) * 2 + 1, 0.5 );
-        mouse3D.unproject(this.camera );
-        this.raycaster = new THREE.Raycaster( this.camera.position, mouse3D.sub( this.camera.position ).normalize() );
-        var intersects = this.raycaster.intersectObject(this, true);
+        var mousePos = new THREE.Vector2(pointerX, pointerY);
+        var intersects = GetIntersectsFromMouse(this.raycaster, this.camera,
+            this.renderer.domElement, mousePos, [this]);
 
         if (intersects.length > 0) {
 
@@ -802,14 +796,10 @@ VRKeyboard = function (scene, camera, renderer) {
         field.addEventListener("mousedownoutside", function (e) {
 
             setTimeout(function() {
-                if (VRMode) {
-                    self.pointerX = 0;
-                    self.pointerY = 0;
-                }
-                var mouse3D = new THREE.Vector3( ( self.pointerX / self.renderer.domElement.width ) * 2 - 1, - ( self.pointerY / self.renderer.domElement.height ) * 2 + 1, 0.5 );
-                mouse3D.unproject(self.camera );
-                self.raycaster = new THREE.Raycaster( self.camera.position, mouse3D.sub( self.camera.position ).normalize() );
-                var intersects = self.raycaster.intersectObject(self, true);
+                var mousePos = new THREE.Vector2(self.pointerX, self.pointerY);
+                var intersects = GetIntersectsFromMouse(self.raycaster, self.camera,
+                    self.renderer.domElement, mousePos, [self]);
+
                 if (intersects.length > 0) {
                     return;
                 }
@@ -1011,14 +1001,9 @@ VRTextInput = function () {
         if(!this.scene)
             return;
 
-        if (VRMode) {
-            pointerX = 0;
-            pointerY = 0;
-        }
-        var mouse3D = new THREE.Vector3( ( pointerX / this.renderer.domElement.width ) * 2 - 1, - ( pointerY / this.renderer.domElement.height ) * 2 + 1, 0.5 );
-        mouse3D.unproject(this.camera );
-        this.raycaster = new THREE.Raycaster( this.camera.position, mouse3D.sub( this.camera.position ).normalize() );
-        var intersects = this.raycaster.intersectObject(this, true);
+        var mousePos = new THREE.Vector2(pointerX, pointerY);
+        var intersects = GetIntersectsFromMouse(this.raycaster, this.camera,
+            this.renderer.domElement, mousePos, [this]);
 
         if (intersects.length > 0) {
 
