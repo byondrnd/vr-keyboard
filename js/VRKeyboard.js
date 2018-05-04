@@ -583,6 +583,10 @@ VRKeyboard = function (scene, camera, renderer) {
 
     this.getInput=function(pointerX, pointerY)
     {
+        if (VRMode) {
+            pointerX = 0;
+            pointerY = 0;
+        }
         var mouse3D = new THREE.Vector3( ( pointerX / this.renderer.domElement.width ) * 2 - 1, - ( pointerY / this.renderer.domElement.height ) * 2 + 1, 0.5 );
         mouse3D.unproject(this.camera );
         this.raycaster = new THREE.Raycaster( this.camera.position, mouse3D.sub( this.camera.position ).normalize() );
@@ -797,7 +801,10 @@ VRKeyboard = function (scene, camera, renderer) {
         field.addEventListener("mousedownoutside", function (e) {
 
             setTimeout(function() {
-
+                if (VRMode) {
+                    self.pointerX = 0;
+                    self.pointerY = 0;
+                }
                 var mouse3D = new THREE.Vector3( ( self.pointerX / self.renderer.domElement.width ) * 2 - 1, - ( self.pointerY / self.renderer.domElement.height ) * 2 + 1, 0.5 );
                 mouse3D.unproject(self.camera );
                 self.raycaster = new THREE.Raycaster( self.camera.position, mouse3D.sub( self.camera.position ).normalize() );
@@ -1003,6 +1010,10 @@ VRTextInput = function () {
         if(!this.scene)
             return;
 
+        if (VRMode) {
+            pointerX = 0;
+            pointerY = 0;
+        }
         var mouse3D = new THREE.Vector3( ( pointerX / this.renderer.domElement.width ) * 2 - 1, - ( pointerY / this.renderer.domElement.height ) * 2 + 1, 0.5 );
         mouse3D.unproject(this.camera );
         this.raycaster = new THREE.Raycaster( this.camera.position, mouse3D.sub( this.camera.position ).normalize() );
