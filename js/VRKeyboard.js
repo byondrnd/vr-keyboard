@@ -806,8 +806,8 @@ VRKeyboard = function (scene, camera, renderer) {
                     self.pointerX = 0;
                     self.pointerY = 0;
                 }
-                this.raycaster = new THREE.Raycaster();
-                this.raycaster.setFromCamera({x: self.pointerX, y: self.pointerY}, self.camera);
+                self.raycaster = new THREE.Raycaster();
+                self.raycaster.setFromCamera({x: self.pointerX, y: self.pointerY}, self.camera);
                 var intersects = self.raycaster.intersectObjects([self], true);
                 if (intersects.length > 0) {
                     return;
