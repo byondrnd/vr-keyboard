@@ -1,3 +1,4 @@
+VRMode = false;
 VRKey=function(data, xPos, yPos)
 {
     this.code=data.c;
